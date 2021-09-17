@@ -1,0 +1,62 @@
+#include <string>
+#include <vector>
+#include <cmath>
+
+using namespace std;
+
+string solution(vector<int> numbers, string hand) {
+    string answer = "";
+    int rH=12, lH=10;
+    int rdis=0, ldis=0;
+    for(int i =0; i<numbers.size(); i++)
+    {
+        if(numbers[i]==1||numbers[i]==4||numbers[i]==7)
+        {
+            answer.push_back('L');
+            lH = numbers[i];
+        }
+        else if(numbers[i]==3||numbers[i]==6||numbers[i]==9)
+        {
+            answer.push_back('R');
+            rH = numbers[i];
+        }
+        else
+        {
+            if(numbers[i] ==0)
+            {
+                numbers[i] = 11;
+            }
+            int l_temp = abs(lH - numbers[i]);
+            int r_temp = abs(rH - numbers[i]);
+            
+            ldis = (l_temp / 3) + (l_temp % 3);
+            rdis = (r_temp / 3) + (r_temp % 3);
+            
+            if(ldis==rdis)
+            {                
+                if(hand =="right")          
+                {              
+                    answer.push_back('R');                
+                    rH = numbers[i];           
+                }            
+                else
+                {
+                    answer.push_back('L');            
+                    lH = numbers[i];        
+                }
+
+            }
+            else if(ldis<rdis)
+            {                
+                answer.push_back('L');
+                lH = numbers[i];
+            }
+            else
+            {   
+                answer.push_back('R');
+                rH = numbers[i];
+            }
+        }
+    }
+    return answer;
+}
