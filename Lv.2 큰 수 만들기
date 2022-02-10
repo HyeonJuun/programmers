@@ -1,0 +1,24 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+string solution(string number, int k) {
+    string answer = "";
+    int idx =  -1;
+    for(int j=0; j<number.length() - k; j++)
+    {
+        char max = 0;
+        for(int i=idx + 1; i<=k+j; i++)
+        {
+            if(max < number[i] )
+            {
+                idx = i;
+                max = number[i];
+            }        
+        }
+        answer += max;
+    }
+
+    return answer;
+}
